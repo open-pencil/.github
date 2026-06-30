@@ -37,10 +37,15 @@ The same repository publishes the programmable surface to npm:
 
 | Package | What it does |
 | --- | --- |
+| [@open-pencil/core](https://www.npmjs.com/package/@open-pencil/core) | Editor engine — renderer, layout, document I/O, Figma API, tools, and RPC |
+| [@open-pencil/scene-graph](https://www.npmjs.com/package/@open-pencil/scene-graph) | Scene graph nodes, primitives, hit testing, copy/snap/undo, variants, and vector-network types |
+| [@open-pencil/kiwi](https://www.npmjs.com/package/@open-pencil/kiwi) | Kiwi binary runtime, Figma schema helpers, and low-level `.fig` container parsing |
+| [@open-pencil/fig](https://www.npmjs.com/package/@open-pencil/fig) | Focused `.fig` package entrypoint |
+| [@open-pencil/pen](https://www.npmjs.com/package/@open-pencil/pen) | Pencil document format helpers |
+| [@open-pencil/dom-css](https://www.npmjs.com/package/@open-pencil/dom-css) | HTML/CSS/Tailwind conversion into editable design documents |
+| [@open-pencil/vue](https://www.npmjs.com/package/@open-pencil/vue) | Headless Vue SDK for embedding OpenPencil or building custom editors |
 | [@open-pencil/cli](https://www.npmjs.com/package/@open-pencil/cli) | Headless CLI — inspect, query (XPath), lint, analyze, export, and convert `.fig`/`.pen` files; control the running editor over RPC |
 | [@open-pencil/mcp](https://www.npmjs.com/package/@open-pencil/mcp) | MCP server (stdio + HTTP) — 100+ design tools for Claude Code, Cursor, Windsurf, and any MCP client |
-| [@open-pencil/core](https://www.npmjs.com/package/@open-pencil/core) | The engine — scene graph, renderer, layout, file formats, tools |
-| [@open-pencil/vue](https://www.npmjs.com/package/@open-pencil/vue) | Headless Vue SDK for embedding OpenPencil or building custom editors |
 
 ## Around the editor
 
@@ -64,11 +69,16 @@ The rendering and layout stack OpenPencil runs on, maintained here:
 
 ```text
 .fig / .pen document (node tree)
-├── editor            — desktop (Tauri) and web app, real-time P2P collaboration
-├── @open-pencil/core — scene graph, Skia renderer, Yoga layout, codecs, 18-rule linter
-├── @open-pencil/cli  — tree / query / lint / analyze / export / eval from the terminal
-├── @open-pencil/mcp  — the same operations as MCP tools for AI agents
-└── @open-pencil/vue  — headless components for building your own editor
+├── editor                  — desktop (Tauri) and web app, real-time P2P collaboration
+├── @open-pencil/core       — editor engine, renderer, layout, tools, RPC, document I/O
+├── @open-pencil/scene-graph — nodes, primitives, hit testing, copy/snap/undo
+├── @open-pencil/kiwi       — Kiwi runtime and low-level .fig container parsing
+├── @open-pencil/fig        — focused .fig package entrypoint
+├── @open-pencil/pen        — Pencil document format helpers
+├── @open-pencil/dom-css    — HTML/CSS/Tailwind to editable design documents
+├── @open-pencil/cli        — tree / query / lint / analyze / export / eval from the terminal
+├── @open-pencil/mcp        — the same operations as MCP tools for AI agents
+└── @open-pencil/vue        — headless components for building your own editor
 ```
 
 Every surface — canvas, CLI, MCP, SDK — drives the same operations on the
