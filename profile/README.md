@@ -12,12 +12,13 @@ renames every color token; an AI agent builds a screen — all through the
 same small set of operations, and each change is data you can review like a
 code change.
 
-It opens Figma's `.fig` files natively, runs as a ~7 MB desktop app or a
-browser tab, and never sends your files anywhere. The editor, the engine,
-the file codec, the CLI, the MCP server, and the Vue SDK are all MIT.
+It opens Figma's `.fig` files natively, runs as a ~15 MB desktop app or a
+browser tab, and never sends your files to any server — only to peers you
+share with or an AI provider you connect. The editor, the engine, the file
+codec, the CLI, the MCP server, and the Vue SDK are all MIT.
 
 ```sh
-brew install open-pencil/tap/open-pencil
+brew install --cask openpencil
 ```
 
 Or [use the web app](https://app.openpencil.dev) — no install, no account.
@@ -31,7 +32,7 @@ Or [use the web app](https://app.openpencil.dev) — no install, no account.
 
 | Project | What it is |
 | --- | --- |
-| [open-pencil](https://github.com/open-pencil/open-pencil) | The editor — desktop and web app, plus the engine, CLI, MCP server, and Vue SDK as workspace packages |
+| [open-pencil](https://github.com/open-pencil/open-pencil) | The editor — desktop and web app — with the engine, CLI, MCP server, Vue SDK, and the [agent skill](https://github.com/open-pencil/open-pencil/tree/master/skills/open-pencil) (`npx skills add open-pencil/open-pencil`) |
 
 The same repository publishes the programmable surface to npm:
 
@@ -40,20 +41,29 @@ The same repository publishes the programmable surface to npm:
 | [@open-pencil/core](https://www.npmjs.com/package/@open-pencil/core) | Editor engine — renderer, layout, document I/O, Figma API, tools, and RPC |
 | [@open-pencil/scene-graph](https://www.npmjs.com/package/@open-pencil/scene-graph) | Scene graph nodes, primitives, hit testing, copy/snap/undo, variants, and vector-network types |
 | [@open-pencil/kiwi](https://www.npmjs.com/package/@open-pencil/kiwi) | Kiwi binary runtime, Figma schema helpers, and low-level `.fig` container parsing |
-| [@open-pencil/fig](https://www.npmjs.com/package/@open-pencil/fig) | Focused `.fig` package entrypoint |
-| [@open-pencil/pen](https://www.npmjs.com/package/@open-pencil/pen) | Pencil document format helpers |
+| [@open-pencil/fig](https://www.npmjs.com/package/@open-pencil/fig) | `.fig` archives — SceneGraph conversion, instances, and metadata |
+| [@open-pencil/pen](https://www.npmjs.com/package/@open-pencil/pen) | `.pen` document parser and SceneGraph adapter |
 | [@open-pencil/dom-css](https://www.npmjs.com/package/@open-pencil/dom-css) | HTML/CSS/Tailwind conversion into editable design documents |
 | [@open-pencil/vue](https://www.npmjs.com/package/@open-pencil/vue) | Headless Vue SDK for embedding OpenPencil or building custom editors |
-| [@open-pencil/cli](https://www.npmjs.com/package/@open-pencil/cli) | Headless CLI — inspect, query (XPath), lint, analyze, export, and convert `.fig`/`.pen` files; control the running editor over RPC |
+| [@open-pencil/cli](https://www.npmjs.com/package/@open-pencil/cli) | Headless CLI — inspect, query (XPath), lint, analyze, export, convert, and import `.fig`/`.pen` files; run Figma plugin API scripts; control the running editor over RPC |
 | [@open-pencil/mcp](https://www.npmjs.com/package/@open-pencil/mcp) | MCP server (stdio + HTTP) — 100+ design tools for Claude Code, Cursor, Windsurf, and any MCP client |
+| [@open-pencil/harness](https://www.npmjs.com/package/@open-pencil/harness) | Optional companion CLI for coding-agent Harness sessions |
 
 ## Around the editor
 
 | Project | What it does |
 | --- | --- |
-| [skills](https://github.com/open-pencil/skills) | Agent skills — teach AI coding agents to inspect, modify, and export design files |
-| [homebrew-tap](https://github.com/open-pencil/homebrew-tap) | Homebrew tap for the desktop app |
 | [twirlwind](https://github.com/open-pencil/twirlwind) | Tailwind v4-first CSS-to-utility-class serializer, used by JSX/Tailwind export |
+| [git-lfs-s3-proxy](https://github.com/open-pencil/git-lfs-s3-proxy) | Provider-neutral Git LFS gateway for S3-compatible storage; serves the repository's fixtures |
+
+## Elixir
+
+The same document model from the BEAM, for services and pipelines that read design files without the editor:
+
+| Project | What it does |
+| --- | --- |
+| [figler](https://github.com/open-pencil/figler) | Analyze, transform, and render Figma files from Elixir |
+| [kiwi_codec](https://github.com/open-pencil/kiwi_codec) | Pure Elixir codec for Kiwi schema binary messages |
 
 ## Engine infrastructure
 
@@ -92,5 +102,5 @@ just generated. The argument and the map live in
 
 ## License
 
-MIT across the organization. Forks (`skia`, `yoga`) keep their upstream
-licenses.
+MIT across the organization, except `skia` (BSD-3-Clause, as upstream) and
+`git-lfs-s3-proxy` (CC0).
